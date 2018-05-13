@@ -1,0 +1,41 @@
+{
+  "name": "personal-site",
+  "description": "An Online Portfolio",
+  "version": "1.0.0",
+  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "dependencies": {
+    "gatsby": "^1.9.247",
+    "gatsby-cli": "^1.1.52",
+    "gatsby-image": "latest",
+    "gatsby-link": "latest",
+    "gatsby-module-loader": "latest",
+    "gatsby-plugin-react-helmet": "^2.0.11",
+    "gatsby-plugin-sharp": "latest",
+    "gatsby-source-filesystem": "latest",
+    "gatsby-transformer-sharp": "^1.6.16",
+    "jss": "latest",
+    "material-ui": "^1.0.0-beta.47",
+    "material-ui-icons": "latest",
+    "prop-types": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-helmet": "^5.2.0",
+    "react-jss": "latest",
+    "react-particles-js": "^2.1.0",
+    "react-router-dom": "^4.2.2",
+    "typeface-roboto": "^0.0.50"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write 'src/**/*.js'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "prettier": "^1.12.0"
+  }
+}
