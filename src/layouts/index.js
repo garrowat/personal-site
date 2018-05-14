@@ -72,22 +72,26 @@ class Index extends React.Component {
   handlePageChange = (page) => {
     const state = this.state;
     state.page = page;
-    const getHeaderImage = (pageId) => this.props.data.headers.edges[pageId].node.childImageSharp.resolutions
+    const getHeaderImage = (pageId) => this.props.data.headers.edges[pageId].node.childImageSharp.resolutions;
     switch (this.state.page) {
       case 'about':
         state.filterColor = 'hue-rotate(0deg)';
         state.headerImage = getHeaderImage(0);
         state.headerTitle = 'Garrett Watson';
         state.headerText = 'Programmer, Educator, Game Nut';
-        state.buttonBackground = 'hue-rotate(0deg)';
-      break;
+        break;
       case 'projects':
         state.filterColor = 'hue-rotate(270deg)';
         state.headerImage = getHeaderImage(1);
         state.headerTitle = 'Projects & Tinkering';
         state.headerText = 'React, Gatsby, Material-UI, Flask, PyTorch, Fast.ai, Javascript, Python';
-        state.buttonBackground = 'hue-rotate(270deg)';
-      break;
+        break;
+      case 'zenobot':
+        state.filterColor = 'hue-rotate(540deg)';
+        state.headerImage = getHeaderImage(2);
+        state.headerTitle = 'Zenobot';
+        state.headerText = 'Character-based predictive text AI';
+        break;
       default:
         state.filterColor = 'hue-rotate(0deg)';
         state.headerImage = getHeaderImage(0);
@@ -125,9 +129,9 @@ class Index extends React.Component {
               <div>
                 <Link to="/" className={classes.link}>
                   <Button 
-                  style={{ filter: this.state.buttonBackground, transition: 'all 1s' }}
+                  style={{ filter: this.state.filterColor, transition: 'all 1s' }}
                   className={classes.button} 
-                  raised={this.state.page==='about'}
+                  variant={this.state.page==='about' ? 'raised' : ''}
                   color="primary"
                   >
                     About
@@ -135,12 +139,22 @@ class Index extends React.Component {
                 </Link>
                 <Link to="/projects/" className={classes.link}>
                   <Button 
-                  style={{ filter: this.state.buttonBackground, transition: 'all 1s' }}
+                  style={{ filter: this.state.filterColor, transition: 'all 1s' }}
                   className={classes.button} 
-                  raised={this.state.page==='projects'} 
+                  variant={this.state.page==='projects' ? 'raised' : ''} 
                   color="primary"
                   >
                     Projects
+                  </Button>
+                </Link>
+                <Link to="/zenobot/" className={classes.link}>
+                  <Button 
+                  style={{ filter: this.state.filterColor, transition: 'all 1s' }}
+                  className={classes.button} 
+                  variant={this.state.page==='zenobot' ? 'raised' : ''} 
+                  color="primary"
+                  >
+                    Zenobot
                   </Button>
                 </Link>
               </div>
