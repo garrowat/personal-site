@@ -4,7 +4,7 @@
         "description": "The amazing wisdom-dispensing AI! LSTM NLP model trained and served in Pytorch and FastAI, delivered via a Flask REST API.",
         "image": "cornstudy.jpg",
         "button": "Try",
-        "link": "https://pedantic-wozniak-4b8642.netlify.com/"
+        "link": "/zenobot/"
     },
     {
         "name": "CornStudy",

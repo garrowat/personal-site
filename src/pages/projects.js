@@ -23,7 +23,7 @@ const styles = theme => ({
     flexGrow: 1,
   },
   card: {
-    maxWidth: 400,
+    maxWidth: 350,
     textAlign: 'left',
   },
   media: {
@@ -72,13 +72,22 @@ class Projects extends React.Component {
                   <Grid key={value.name} item>
                     <Fade in={true}>
                       <Card className={classes.card}>
-                        <a href={value.link}>
+                        {value.link.startsWith('/')
+                          ? <Link to={value.link}>
                           <CardMedia 
                             className={classes.media}
                             title={value.name || ''}
                             image={currentImage || ''}
                           />
-                        </a>
+                          </Link>
+                          : <a href={value.link}>
+                            <CardMedia 
+                              className={classes.media}
+                              title={value.name || ''}
+                              image={currentImage || ''}
+                            />
+                          </a>
+                        }
                         <CardContent>
                           <Typography variant="headline" component="h2">
                             {value.name}

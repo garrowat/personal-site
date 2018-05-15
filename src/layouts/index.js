@@ -131,7 +131,7 @@ class Index extends React.Component {
                   <Button 
                   style={{ filter: this.state.filterColor, transition: 'all 1s' }}
                   className={classes.button} 
-                  variant={this.state.page==='about' ? 'raised' : ''}
+                  variant={this.state.page==='about' ? 'raised' : 'flat'}
                   color="primary"
                   >
                     About
@@ -141,7 +141,7 @@ class Index extends React.Component {
                   <Button 
                   style={{ filter: this.state.filterColor, transition: 'all 1s' }}
                   className={classes.button} 
-                  variant={this.state.page==='projects' ? 'raised' : ''} 
+                  variant={this.state.page==='projects' ? 'raised' : 'flat'} 
                   color="primary"
                   >
                     Projects
@@ -151,7 +151,7 @@ class Index extends React.Component {
                   <Button 
                   style={{ filter: this.state.filterColor, transition: 'all 1s' }}
                   className={classes.button} 
-                  variant={this.state.page==='zenobot' ? 'raised' : ''} 
+                  variant={this.state.page==='zenobot' ? 'raised' : 'flat'} 
                   color="primary"
                   >
                     Zenobot
