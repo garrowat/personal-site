@@ -137,6 +137,8 @@ class Index extends React.Component {
         const proverb = result.proverb;
         zenobot.proverb = proverb;
         zenobot.isLoading = false;
+        lastTenProverbsUpdate(proverb);
+        console.log(zenobot.lastTenProverbs)
         this.setState({ zenobot })
       })
       .catch(error => console.log(error));
@@ -149,7 +151,7 @@ class Index extends React.Component {
     const projectImages = this.props.data.projects.edges;
     const getProverb = this.getProverb;
     const handleFieldChange = this.handleFieldChange;
-    const { zenobot } = this.state;
+    const { zenobot, filterColor } = this.state;
 
     return (
       <div>
@@ -208,7 +210,8 @@ class Index extends React.Component {
                 projectImages, 
                 getProverb, 
                 handleFieldChange,
-                zenobot
+                zenobot,
+                filterColor
                 }) 
               }
             </Paper>

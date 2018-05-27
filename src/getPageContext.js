@@ -3,6 +3,7 @@
 import { SheetsRegistry } from 'jss';
 import { createMuiTheme, createGenerateClassName } from 'material-ui/styles';
 import 'typeface-roboto';
+import 'typeface-vt323';
 import blue from 'material-ui/colors/blue';
 import green from 'material-ui/colors/green';
 
