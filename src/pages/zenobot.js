@@ -27,26 +27,33 @@ class Zenobot extends React.Component {
     this.props.handleFieldChange(input)
   }
 
+  handleGetProverb(e) {
+    e.preventDefault()
+    const input = e.target.value;
+    this.props.getProverb(input);
+  }
+
   render() {
-    const { classes, getProverb, handleFieldChange, zenobot } = this.props;
+    const { classes, zenobot } = this.props;
     console.log(this.props)
 
     return (
       <div className={classes.description}>
-        <Typography type="body1">
+        <Typography variant="body1">
           Zenobot awaits your input.
         </Typography>
 
-        <form onSubmit={(e) => getProverb(e)}>
+        <form onSubmit={(e) => this.handleGetProverb(e)}>
           <TextField 
           autoFocus={true}
           value={zenobot.input}
           onChange={(e) => this.handleChange(e)}
-          onBlur={(e) => this.getProverb(e)}
+          onBlur={(e) => this.handleGetProverb(e)}
           />
         </form>
 
-        <Typography type="body1">
+        <Typography variant="display1">
+          <br />
           {zenobot.proverb}
         </Typography>
       </div>
