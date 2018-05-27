@@ -54,7 +54,7 @@ const styles = theme => ({
   },
 });
 
-
+const apiUrl = `http://garrowat.pythonanywhere.com/zenobot/proverb/`;
 
 class Index extends React.Component {
   constructor(props) {
@@ -66,6 +66,12 @@ class Index extends React.Component {
       headerImage: this.props.data.headers.edges[0].node.childImageSharp.resolutions,
       headerTitle: 'Garrett Watson',
       headerText: 'Programmer, Educator, Game Nut',
+      zenobot: {
+        input: '',
+        proverb: '',
+        lastTenProverbs: [],
+        isLoading: false,
+      },
     };
   } 
 
@@ -84,13 +90,13 @@ class Index extends React.Component {
         state.filterColor = 'hue-rotate(270deg)';
         state.headerImage = getHeaderImage(1);
         state.headerTitle = 'Projects & Tinkering';
-        state.headerText = 'React, Gatsby, Material-UI, Flask, PyTorch, Fast.ai, Javascript, Python';
+        state.headerText = 'React, GatsbyJS, Material-UI, Flask, PyTorch, Fast.ai, Javascript, Python';
         break;
       case 'zenobot':
         state.filterColor = 'hue-rotate(540deg)';
         state.headerImage = getHeaderImage(2);
         state.headerTitle = 'Zenobot';
-        state.headerText = 'Character-based predictive text AI';
+        state.headerText = 'Wisdom Dispensing AI';
         break;
       default:
         state.filterColor = 'hue-rotate(0deg)';
@@ -102,10 +108,48 @@ class Index extends React.Component {
     this.setState({ state });
   }
 
+  handleFieldChange = (input) => {
+    let zenobot = this.state.zenobot;
+    zenobot.input = input;
+    this.setState({ zenobot });
+  }
+
+  getProverb = (input) => {
+    let zenobot = this.state.zenobot;
+    // Turn on loading
+    zenobot.isLoading = true;
+    this.setState({ zenobot });
+
+    const lastTenProverbsUpdate = (proverb) => {
+      // Maintain a list of only the last ten proverbs for this session
+      let list = zenobot.lastTenProverbs;
+      list.length < 10
+      ? zenobot.lastTenProverbs.unshift(proverb)
+      : zenobot.lastTenProverbs.pop() && zenobot.lastTenProverbs.unshift(proverb)
+    };
+
+    fetch(`${apiUrl}${input}`)
+      .then( (response) => {
+        if (response.ok) return response.json();
+        throw new Error("Something went wrong, can't generate proverb.");
+      })
+      .then( result => {
+        const proverb = result.proverb;
+        zenobot.proverb = proverb;
+        zenobot.isLoading = false;
+        this.setState({ zenobot })
+      })
+      .catch(error => console.log(error));
+  }
+
+
   render() {
     const { classes, children } = this.props;
     const handlePageChange = this.handlePageChange;
     const projectImages = this.props.data.projects.edges;
+    const getProverb = this.getProverb;
+    const handleFieldChange = this.handleFieldChange;
+    const { zenobot } = this.state;
 
     return (
       <div>
@@ -158,7 +202,15 @@ class Index extends React.Component {
                   </Button>
                 </Link>
               </div>
-              { children({...this.props, handlePageChange, projectImages}) }
+              { children({
+                ...this.props, 
+                handlePageChange, 
+                projectImages, 
+                getProverb, 
+                handleFieldChange,
+                zenobot
+                }) 
+              }
             </Paper>
           </div>
         </Fade>

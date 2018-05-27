@@ -115,4 +115,4 @@ class Projects extends React.Component {
     }
   };
   
-  export default withStyles(styles)(Projects);
+export default withStyles(styles)(Projects);
