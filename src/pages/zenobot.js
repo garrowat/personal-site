@@ -39,27 +39,26 @@ const styles = theme => ({
 });
 
 class Zenobot extends React.Component {
-  constructor(props) {
-    super(props)
-  }
   
   componentDidMount() {
     this.props.handlePageChange('zenobot');
-    this.props.handleFieldChange('');
+    console.log("props on mount: ", this.props);
   }
 
   handleChange(e) {
     const input = e.target.value;
-    this.props.handleFieldChange(input)
+    this.props.handleFieldChange(input);
   }
 
   handleGetProverb(e, input) {
     if (input) this.props.getProverb(input);
+    console.log("props on get: ", this.props)
     e.preventDefault();
   }
 
   render() {
     const { classes, zenobot, filterColor } = this.props; 
+    const { proverb, isLoading } = zenobot;
 
     return (
       <div className={classes.description}>
@@ -69,7 +68,7 @@ class Zenobot extends React.Component {
         <form onSubmit={(e) => this.handleGetProverb(e, zenobot.input)}>
           <TextField 
           autoFocus={true}
-          value={zenobot.input}
+          value={zenobot.input || ''}
           onChange={(e) => this.handleChange(e)}
           onBlur={(e) => this.handleGetProverb(e, zenobot.input)}
           />
@@ -77,9 +76,10 @@ class Zenobot extends React.Component {
         <Paper className={classes.proverb}>
           <Typography variant="caption">Zenobot says:</Typography>
           <div>
-            {zenobot.isLoading
+            {
+            isLoading
             ? <CircularProgress />
-            : <Fade><Proverb proverb={zenobot.proverb} variant="display1" /></Fade>
+            : <Proverb proverb={proverb} variant="display1" />
             }
           </div>
         </Paper>

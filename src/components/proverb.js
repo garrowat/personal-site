@@ -7,4 +7,4 @@ const Proverb = ({ proverb, variant }) => (
     </Typography>
   )
   
-  export default Proverb
+export default Proverb

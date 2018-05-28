@@ -54,7 +54,7 @@ const styles = theme => ({
   },
 });
 
-const apiUrl = `http://garrowat.pythonanywhere.com/zenobot/proverb/`;
+const apiUrl = `https://garrowat.pythonanywhere.com/zenobot/proverb`;
 
 class Index extends React.Component {
   constructor(props) {
@@ -75,47 +75,58 @@ class Index extends React.Component {
     };
   } 
 
-  handlePageChange = (page) => {
-    const state = this.state;
-    state.page = page;
+  handlePageChange = (newPage) => {
+    let { 
+      filterColor, 
+      headerImage, 
+      headerTitle, 
+      headerText 
+    } = {...this.state};
+    const page = newPage;
     const getHeaderImage = (pageId) => this.props.data.headers.edges[pageId].node.childImageSharp.resolutions;
-    switch (this.state.page) {
+    switch (page) {
       case 'about':
-        state.filterColor = 'hue-rotate(0deg)';
-        state.headerImage = getHeaderImage(0);
-        state.headerTitle = 'Garrett Watson';
-        state.headerText = 'Programmer, Educator, Game Nut';
+        filterColor = 'hue-rotate(0deg)';
+        headerImage = getHeaderImage(0);
+        headerTitle = 'Garrett Watson';
+        headerText = 'Programmer, Educator, Game Nut';
         break;
       case 'projects':
-        state.filterColor = 'hue-rotate(270deg)';
-        state.headerImage = getHeaderImage(1);
-        state.headerTitle = 'Projects & Tinkering';
-        state.headerText = 'React, GatsbyJS, Material-UI, Flask, PyTorch, Fast.ai, Javascript, Python';
+        filterColor = 'hue-rotate(270deg)';
+        headerImage = getHeaderImage(1);
+        headerTitle = 'Projects & Tinkering';
+        headerText = 'React, GatsbyJS, Material-UI, Flask, PyTorch, Fast.ai, Javascript, Python';
         break;
       case 'zenobot':
-        state.filterColor = 'hue-rotate(540deg)';
-        state.headerImage = getHeaderImage(2);
-        state.headerTitle = 'Zenobot';
-        state.headerText = 'Wisdom Dispensing AI';
+        filterColor = 'hue-rotate(540deg)';
+        headerImage = getHeaderImage(2);
+        headerTitle = 'Zenobot';
+        headerText = 'Wisdom Dispensing AI';
         break;
       default:
-        state.filterColor = 'hue-rotate(0deg)';
-        state.headerImage = getHeaderImage(0);
-        state.headerTitle = 'Garrett Watson';
-        state.headerText = 'Programmer, Educator, Game Nut';
+        filterColor = 'hue-rotate(0deg)';
+        headerImage = getHeaderImage(0);
+        headerTitle = 'Garrett Watson';
+        headerText = 'Programmer, Educator, Game Nut';
       break;
     }
-    this.setState({ state });
+    this.setState({ 
+      page, 
+      filterColor, 
+      headerImage, 
+      headerTitle, 
+      headerText 
+    });
   }
 
   handleFieldChange = (input) => {
-    let zenobot = this.state.zenobot;
+    let zenobot = {...this.state.zenobot};
     zenobot.input = input;
     this.setState({ zenobot });
   }
 
   getProverb = (input) => {
-    let zenobot = this.state.zenobot;
+    let zenobot = {...this.state.zenobot};
     // Turn on loading
     zenobot.isLoading = true;
     this.setState({ zenobot });
@@ -128,17 +139,19 @@ class Index extends React.Component {
       : zenobot.lastTenProverbs.pop() && zenobot.lastTenProverbs.unshift(proverb)
     };
 
-    fetch(`${apiUrl}${input}`)
+    fetch(`${apiUrl}/${input}`)
       .then( (response) => {
-        if (response.ok) return response.json();
-        throw new Error("Something went wrong, can't generate proverb.");
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Something went wrong, can't generate proverb.")
+        }
       })
       .then( result => {
         const proverb = result.proverb;
         zenobot.proverb = proverb;
-        zenobot.isLoading = false;
         lastTenProverbsUpdate(proverb);
-        console.log(zenobot.lastTenProverbs)
+        zenobot.isLoading = false;
         this.setState({ zenobot })
       })
       .catch(error => console.log(error));
@@ -175,7 +188,7 @@ class Index extends React.Component {
               <div>
                 <Link to="/" className={classes.link}>
                   <Button 
-                  style={{ filter: this.state.filterColor, transition: 'all 1s' }}
+                  style={{ filter: filterColor, transition: 'all 1s' }}
                   className={classes.button} 
                   variant={this.state.page==='about' ? 'raised' : 'flat'}
                   color="primary"
@@ -185,7 +198,7 @@ class Index extends React.Component {
                 </Link>
                 <Link to="/projects/" className={classes.link}>
                   <Button 
-                  style={{ filter: this.state.filterColor, transition: 'all 1s' }}
+                  style={{ filter: filterColor, transition: 'all 1s' }}
                   className={classes.button} 
                   variant={this.state.page==='projects' ? 'raised' : 'flat'} 
                   color="primary"
@@ -195,7 +208,7 @@ class Index extends React.Component {
                 </Link>
                 <Link to="/zenobot/" className={classes.link}>
                   <Button 
-                  style={{ filter: this.state.filterColor, transition: 'all 1s' }}
+                  style={{ filter: filterColor, transition: 'all 1s' }}
                   className={classes.button} 
                   variant={this.state.page==='zenobot' ? 'raised' : 'flat'} 
                   color="primary"
