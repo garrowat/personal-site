@@ -18,7 +18,7 @@ export default class About extends React.Component {
       <Fade in>
         <div className={classes.description}>
             <Typography variant="body1">
-                Garrett is a lifelong computer geek and gamer whose path in life has landed him in all sorts of roles, from government IT admin to SaaS training/consulting for Physicians. 
+                Garrett is a lifelong computer geek and gamer whose path in life has landed him in all sorts of roles, from public sector sysadmin to SaaS training/consulting for Physicians. 
             </Typography>
             <br />
             <Typography variant="body1">

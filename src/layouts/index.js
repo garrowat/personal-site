@@ -127,10 +127,7 @@ class Index extends React.Component {
 
   getProverb = (input) => {
     let zenobot = {...this.state.zenobot};
-    // Turn on loading
-    zenobot.isLoading = true;
-    this.setState({ zenobot });
-
+    
     const lastTenProverbsUpdate = (proverb) => {
       // Maintain a list of only the last ten proverbs for this session
       let list = zenobot.lastTenProverbs;
@@ -141,6 +138,9 @@ class Index extends React.Component {
 
     fetch(`${apiUrl}/${input}`)
       .then( (response) => {
+        // Turn on loading
+        zenobot.isLoading=true;
+        this.setState({ zenobot });
         if (response.ok) {
           return response.json();
         } else {
@@ -148,13 +148,15 @@ class Index extends React.Component {
         }
       })
       .then( result => {
+        zenobot.isLoading = false;
+
         const proverb = result.proverb;
         zenobot.proverb = proverb;
         lastTenProverbsUpdate(proverb);
-        zenobot.isLoading = false;
-        this.setState({ zenobot })
       })
       .catch(error => console.log(error));
+      this.setState({ zenobot });
+      console.log("set state.zenobot to: ", this.state.zenobot)
   }
 
 

@@ -9,6 +9,7 @@ import ExpansionPanel from 'material-ui/ExpansionPanel/ExpansionPanel';
 import ExpansionPanelSummary from 'material-ui/ExpansionPanel/ExpansionPanelSummary';
 import ExpansionPanelDetails from 'material-ui/ExpansionPanel/ExpansionPanelDetails';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
+import withRoot from '../withRoot';
 
 import { withStyles } from 'material-ui/styles';
 
@@ -35,6 +36,9 @@ const styles = theme => ({
   ul: {
     listStyleType: 'none',
     padding: 0,
+  },
+  zenoQuote: {
+    paddingTop: theme.spacing.unit * 3,
   },
 });
 
@@ -75,7 +79,7 @@ class Zenobot extends React.Component {
         </form>
         <Paper className={classes.proverb}>
           <Typography variant="caption">Zenobot says:</Typography>
-          <div>
+          <div className={classes.zenoQuote}>
             {
             isLoading
             ? <CircularProgress />
@@ -108,4 +112,4 @@ class Zenobot extends React.Component {
   }
 };
 
-export default withStyles(styles)(Zenobot);
+export default withRoot(withStyles(styles)(Zenobot));
