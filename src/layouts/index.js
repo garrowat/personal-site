@@ -7,6 +7,7 @@ import { withStyles } from 'material-ui/styles';
 import withRoot from '../withRoot';
 import Particles from 'react-particles-js';
 import Link from 'gatsby-link';
+import Tooltip from 'material-ui/Tooltip';
 import Img from 'gatsby-image';
 import Hidden from 'material-ui/Hidden';
 import Fade from 'material-ui/transitions/Fade';
@@ -161,16 +162,18 @@ class Index extends React.Component {
                     Projects
                   </Button>
                 </Link>
-                <a href="https://zenobot.garrettwatson.io" className={classes.link} target="_blank">
-                  <Button 
-                  style={{ filter: filterColor, transition: 'all 1s' }}
-                  className={classes.button} 
-                  variant={this.state.page==='zenobot' ? 'raised' : 'flat'} 
-                  color="primary"
-                  >
-                    Zenobot
-                  </Button>
-                </a>
+                <Tooltip title="AI Proverb Generator">
+                  <a href="https://zenobot.garrettwatson.io" className={classes.link} target="_blank">
+                    <Button 
+                    style={{ filter: filterColor, transition: 'all 1s' }}
+                    className={classes.button} 
+                    variant={this.state.page==='zenobot' ? 'raised' : 'flat'} 
+                    color="primary"
+                    >
+                      Zenobot
+                    </Button>
+                  </a>
+                </Tooltip>
               </div>
               { children({
                 ...this.props, 

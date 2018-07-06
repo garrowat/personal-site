@@ -47,7 +47,7 @@ export default class About extends React.Component {
         <div className={classes.description}>
             <Typography variant="subheading" paragraph gutterBottom>
                 As a lifelong computer geek and gamer, my path in life has landed me in all sorts of roles, 
-                from public sector sysadmin to SaaS training/consulting for Clinicians.
+                from public sector sysadmin to SaaS training/consulting for clinicians.
             </Typography>
 
             <Typography variant="subheading" paragraph gutterBottom>
