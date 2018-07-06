@@ -5,14 +5,15 @@ import { createMuiTheme, createGenerateClassName } from 'material-ui/styles';
 import 'typeface-roboto';
 import 'typeface-vt323';
 import blue from 'material-ui/colors/blue';
-import green from 'material-ui/colors/green';
 
 // A theme with custom primary and secondary color.
 // It's optional.
 const theme = createMuiTheme({
   palette: {
     primary: blue,
-    secondary: green,
+    secondary: {
+      main: '#888888',
+    },
   },
 });
 

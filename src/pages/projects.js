@@ -80,7 +80,7 @@ class Projects extends React.Component {
                             image={currentImage || ''}
                           />
                           </Link>
-                          : <a href={value.link}>
+                          : <a href={value.link} target="_blank">
                             <CardMedia 
                               className={classes.media}
                               title={value.name || ''}
@@ -95,9 +95,14 @@ class Projects extends React.Component {
                           <Typography component="p">
                             {value.description}
                           </Typography>
-                          <CardActions>
-                            <a href={value.link}>
-                              <Button dense="true" color="primary" className={classes.button}>
+                          <CardActions style={{ padding: 0, paddingTop: 5 }}>
+                            <a href={value.link} style={{ textDecoration: "none", marginLeft: 0 }}>
+                              <Button 
+                              variant="outlined" 
+                              dense={true} 
+                              color="primary" 
+                              className={classes.button} 
+                              >
                                 {value.button}
                               </Button>
                             </a>

@@ -28,6 +28,9 @@ const styles = theme => ({
   container: {
     paddingTop: 0,
   },
+  copyright: {
+    marginTop: theme.spacing.unit * 10,
+  },
   button: {
     margin: theme.spacing.unit,
   },
@@ -39,8 +42,12 @@ const styles = theme => ({
     width: '100%',
     paddingLeft: '10%',
     paddingRight: '10%',
-    paddingTop: theme.spacing.unit * 3,
+    paddingTop: theme.spacing.unit,
     maxWidth: '500px',
+  },
+  links: {
+    margin: 'auto',
+    marginTop: theme.spacing.unit,
   },
   particles: {
     zIndex: '-1',
@@ -54,8 +61,6 @@ const styles = theme => ({
   },
 });
 
-const apiUrl = `https://garrowat.pythonanywhere.com/zenobot/proverb`;
-
 class Index extends React.Component {
   constructor(props) {
     super(props);
@@ -66,12 +71,6 @@ class Index extends React.Component {
       headerImage: this.props.data.headers.edges[0].node.childImageSharp.resolutions,
       headerTitle: 'Garrett Watson',
       headerText: 'Programmer, Educator, Game Nut',
-      zenobot: {
-        input: '',
-        proverb: '',
-        lastTenProverbs: [],
-        isLoading: false,
-      },
     };
   } 
 
@@ -97,12 +96,6 @@ class Index extends React.Component {
         headerTitle = 'Projects & Tinkering';
         headerText = 'React, GatsbyJS, Material-UI, Flask, PyTorch, Fast.ai, Javascript, Python';
         break;
-      case 'zenobot':
-        filterColor = 'hue-rotate(540deg)';
-        headerImage = getHeaderImage(2);
-        headerTitle = 'Zenobot';
-        headerText = 'Wisdom Dispensing AI';
-        break;
       default:
         filterColor = 'hue-rotate(0deg)';
         headerImage = getHeaderImage(0);
@@ -119,46 +112,6 @@ class Index extends React.Component {
     });
   }
 
-  handleFieldChange = (input) => {
-    let zenobot = {...this.state.zenobot};
-    zenobot.input = input;
-    this.setState({ zenobot });
-  }
-
-  getProverb = (input) => {
-    let zenobot = {...this.state.zenobot};
-    
-    const lastTenProverbsUpdate = (proverb) => {
-      // Maintain a list of only the last ten proverbs for this session
-      let list = zenobot.lastTenProverbs;
-      list.length < 10
-      ? zenobot.lastTenProverbs.unshift(proverb)
-      : zenobot.lastTenProverbs.pop() && zenobot.lastTenProverbs.unshift(proverb)
-    };
-
-    fetch(`${apiUrl}/${input}`)
-      .then( (response) => {
-        // Turn on loading
-        zenobot.isLoading=true;
-        this.setState({ zenobot });
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Something went wrong, can't generate proverb.")
-        }
-      })
-      .then( result => {
-        zenobot.isLoading = false;
-
-        const proverb = result.proverb;
-        zenobot.proverb = proverb;
-        lastTenProverbsUpdate(proverb);
-      })
-      .catch(error => console.log(error));
-      this.setState({ zenobot });
-      console.log("set state.zenobot to: ", this.state.zenobot)
-  }
-
 
   render() {
     const { classes, children } = this.props;
@@ -166,7 +119,7 @@ class Index extends React.Component {
     const projectImages = this.props.data.projects.edges;
     const getProverb = this.getProverb;
     const handleFieldChange = this.handleFieldChange;
-    const { zenobot, filterColor } = this.state;
+    const { filterColor } = this.state;
 
     return (
       <div>
@@ -208,7 +161,7 @@ class Index extends React.Component {
                     Projects
                   </Button>
                 </Link>
-                <Link to="/zenobot/" className={classes.link}>
+                <a href="https://zenobot.garrettwatson.io" className={classes.link} target="_blank">
                   <Button 
                   style={{ filter: filterColor, transition: 'all 1s' }}
                   className={classes.button} 
@@ -217,7 +170,7 @@ class Index extends React.Component {
                   >
                     Zenobot
                   </Button>
-                </Link>
+                </a>
               </div>
               { children({
                 ...this.props, 
@@ -225,10 +178,12 @@ class Index extends React.Component {
                 projectImages, 
                 getProverb, 
                 handleFieldChange,
-                zenobot,
                 filterColor
                 }) 
               }
+              <div className={classes.copyright}>
+                <Typography variant="caption">© 2018 Garrett Watson. All rights reserved.</Typography>
+              </div>
             </Paper>
           </div>
         </Fade>
