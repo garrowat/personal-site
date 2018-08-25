@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography';
 import Modal from 'material-ui/Modal';
 import Videobox from '../components/videobox';
 import dalf from '../img/videos/dalf.mp4';
-import { withStyles } from 'material-ui';
+import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   videoBox: {
