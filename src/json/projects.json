@@ -2,19 +2,19 @@
     {
         "name": "Zenobot",
         "description": "The amazing wisdom-dispensing AI! LSTM NLP model trained and served in Pytorch and FastAI, delivered via a Flask REST API.",
-        "button": "Try",
-        "link": "https://zenobot.garrettwatson.io"
+        "buttons": ["Try", "Github"],
+        "links": ["https://zenobot.garrettwatson.io", "https://github.com/garrowat/zenobot-react"]
     },
     {
         "name": "CornStudy",
         "description": "An English language vocabulary quiz generator built in React with Material UI components.",
-        "button": "Try",
-        "link": "https://cornstudy.garrettwatson.io"
+        "buttons": ["Try", "Github"],
+        "links": ["https://cornstudy.garrettwatson.io", "https://github.com/garrowat/cornstudy"]
     },
     {
         "name": "Hacker News",
         "description": "A simple Hacker News search tool built in React with Material Components.",
-        "button": "Try",
-        "link": "https://hackernews.garrettwatson.io"
+        "buttons": ["Try", "Github"],
+        "links": ["https://hackernews.garrettwatson.io", "https://github.com/garrowat/hackernews"]
     }
 ]

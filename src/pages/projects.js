@@ -1,12 +1,8 @@
 import React from 'react';
 import Typography from 'material-ui/Typography';
-import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
-import Collapse from 'material-ui/transitions/Collapse';
-import Avatar from 'material-ui/Avatar';
+import Card, { CardMedia, CardContent, CardActions } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
-import Img from 'gatsby-image';
 import Link from 'gatsby-link';
 import Fade from 'material-ui/transitions/Fade';
 
@@ -72,15 +68,15 @@ class Projects extends React.Component {
                   <Grid key={value.name} item>
                     <Fade in={true}>
                       <Card className={classes.card}>
-                        {value.link.startsWith('/')
-                          ? <Link to={value.link}>
+                        {value.links[0].startsWith('/')
+                          ? <Link to={value.links[0]}>
                           <CardMedia 
                             className={classes.media}
                             title={value.name || ''}
                             image={currentImage || ''}
                           />
                           </Link>
-                          : <a href={value.link} target="_blank">
+                          : <a href={value.links[0]} target="_blank">
                             <CardMedia 
                               className={classes.media}
                               title={value.name || ''}
@@ -96,16 +92,20 @@ class Projects extends React.Component {
                             {value.description}
                           </Typography>
                           <CardActions style={{ padding: 0, paddingTop: 5 }}>
-                            <a href={value.link} style={{ textDecoration: "none", marginLeft: 0 }}>
-                              <Button 
-                              variant="outlined" 
-                              dense={true} 
-                              color="primary" 
-                              className={classes.button} 
-                              >
-                                {value.button}
-                              </Button>
-                            </a>
+                            {
+                              value.buttons.map((button, index) => 
+                                <a href={value.links[index]} style={{ textDecoration: "none", marginLeft: 0 }} target="_blank">
+                                  <Button 
+                                  variant="outlined" 
+                                  dense={true} 
+                                  color="primary" 
+                                  className={classes.button} 
+                                  >
+                                    {button}
+                                  </Button>
+                                </a>
+                              )
+                            }
                           </CardActions>
                         </CardContent>
                       </Card>

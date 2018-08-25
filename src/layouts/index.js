@@ -72,6 +72,7 @@ class Index extends React.Component {
       headerImage: this.props.data.headers.edges[0].node.childImageSharp.resolutions,
       headerTitle: 'Garrett Watson',
       headerText: 'Programmer, Educator, Game Nut',
+      gandalfAppears: false,
     };
   } 
 
@@ -89,7 +90,7 @@ class Index extends React.Component {
         filterColor = 'hue-rotate(0deg)';
         headerImage = getHeaderImage(0);
         headerTitle = 'Garrett Watson';
-        headerText = 'Programmer, Educator, Game Nut';
+        headerText = 'Educator, Programmer, Artist, Game Nut';
         break;
       case 'projects':
         filterColor = 'hue-rotate(270deg)';
@@ -101,7 +102,7 @@ class Index extends React.Component {
         filterColor = 'hue-rotate(0deg)';
         headerImage = getHeaderImage(0);
         headerTitle = 'Garrett Watson';
-        headerText = 'Programmer, Educator, Game Nut';
+        headerText = 'Educator, Programmer, Artist, Game Nut';
       break;
     }
     this.setState({ 
@@ -113,6 +114,13 @@ class Index extends React.Component {
     });
   }
 
+  showGandalf = () => {
+    this.setState({gandalfAppears: true})
+  }
+  
+  hideGandalf = () => {
+    this.setState({gandalfAppears: false})
+  } 
 
   render() {
     const { classes, children } = this.props;
@@ -120,7 +128,9 @@ class Index extends React.Component {
     const projectImages = this.props.data.projects.edges;
     const getProverb = this.getProverb;
     const handleFieldChange = this.handleFieldChange;
-    const { filterColor } = this.state;
+    const showGandalf = this.showGandalf;
+    const hideGandalf = this.hideGandalf;
+    const { filterColor, gandalfAppears } = this.state;
 
     return (
       <div>
@@ -162,6 +172,18 @@ class Index extends React.Component {
                     Projects
                   </Button>
                 </Link>
+                <Tooltip title="Instagram">
+                  <a href="https://www.instagram.com/graphicalmotion/" className={classes.link} target="_blank">
+                    <Button 
+                    style={{ filter: filterColor, transition: 'all 1s' }}
+                    className={classes.button} 
+                    variant={this.state.page==='artwork' ? 'raised' : 'flat'} 
+                    color="primary"
+                    >
+                      Artwork
+                    </Button>
+                  </a>
+                </Tooltip>
                 <Tooltip title="AI Proverb Generator">
                   <a href="https://zenobot.garrettwatson.io" className={classes.link} target="_blank">
                     <Button 
@@ -181,7 +203,10 @@ class Index extends React.Component {
                 projectImages, 
                 getProverb, 
                 handleFieldChange,
-                filterColor
+                filterColor,
+                gandalfAppears,
+                showGandalf,
+                hideGandalf,
                 }) 
               }
               <div className={classes.copyright}>

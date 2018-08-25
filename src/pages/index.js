@@ -3,16 +3,40 @@ import Code from 'material-ui-icons/Code';
 import Group from 'material-ui-icons/Group';
 import Email from 'material-ui-icons/Email';
 import IconButton from 'material-ui/IconButton';
+import Paper from 'material-ui/Paper';
 import Tooltip from 'material-ui/Tooltip';
 import Typography from 'material-ui/Typography';
+import Modal from 'material-ui/Modal';
+import Videobox from '../components/videobox';
+import dalf from '../img/videos/dalf.mp4';
+import { withStyles } from 'material-ui';
 
-export default class About extends React.Component {
+const styles = theme => ({
+  videoBox: {
+    width: 'auto',
+    height: 'auto',
+  },
+  modal: {
+    position: 'absolute',
+    left: '25%',
+    top: '25%',
+  },
+})
+
+class About extends React.Component {
   constructor(props) {
     super(props)
   }
   
   componentDidMount() {
     this.props.handlePageChange('about');
+  }
+
+  handleQuoteClick = (e) => {
+    this.props.gandalfAppears === false
+    ? this.props.showGandalf()
+    : this.props.hideGandalf()
+    e.preventDefault();
   }
 
   render() {
@@ -46,20 +70,40 @@ export default class About extends React.Component {
         </div>
         <div className={classes.description}>
             <Typography variant="subheading" paragraph gutterBottom>
-                As a lifelong computer geek and gamer, my path in life has landed me in all sorts of roles, 
-                from public sector sysadmin to SaaS training/consulting for clinicians.
+                As a lifelong computer geek, creative, and gamer, my path in life has landed me in all sorts of roles, 
+                including public sector sysadmin, teacher, and SaaS training/consulting for clinicians.
             </Typography>
 
             <Typography variant="subheading" paragraph gutterBottom>
-                I currently teach during the day and code at night, diving into a good game when life allows.
-                I'd love to bring my wide-ranging experience, front-end skills, and deep learning curiosity to your project or company.
+                I currently teach during the day and code at night, creating art or diving into a good game when life allows.
+                Learning is something I'm always interested in, so I'm open to all manner of opportunities! 
+                Email me at the link above with any inquiries.
             </Typography>
 
             <Typography variant="subheading" paragraph gutterBottom>           
-                Javascript & Python developer. Capable with React and GatsbyJS. Game design and vector art hobbyist. Believer in Be Excellent to Each Other.
+              I'm an ambitious Javascript & Python student and creator who is capable with React and new to GatsbyJS. 
+            </Typography>
+            <Typography variant="subheading" paragraph gutterBottom>           
+              My hobbies include culinary exploration, craft coffee and beer, gaming, game design, animation, and vector art.         
+            </Typography>
+            <Typography variant="caption" paragraph gutterBottom>
+             <a href="" onClick={(e) => this.handleQuoteClick(e)} style={{ textDecoration: "none" }}>
+              All we have to decide is what to do with the time that is given us.
+             </a>
+             <Modal
+              open={this.props.gandalfAppears}
+              onClose={this.props.hideGandalf}
+              className={classes.modal}
+             >
+              <Paper className={classes.videoBox}>
+                <Videobox videofile={dalf} />
+              </Paper>
+             </Modal>
             </Typography>
         </div>
       </div>
     )
   }
 };
+
+export default withStyles(styles)(About);
