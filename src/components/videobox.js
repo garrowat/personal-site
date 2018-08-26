@@ -1,19 +1,23 @@
 import React from 'react';
+import { withStyles } from 'material-ui/styles';
 
+const styles = theme => ({
+    video: {
 
-const Videobox = ({ videofile }) => (
+        maxWidth: theme.spacing.unit * 50,
+        height: 'auto',
+    },
+})
+
+const Videobox = ( props ) => (
     <video 
     loop 
     autoPlay 
     preload='true' 
-    style={{
-        minWidth: 100,
-        width: 'auto',
-        height: 'auto',
-    }}
+    className={props.classes.video}
     >
-        <source src={videofile} />
+        <source src={props.videofile} />
     </video>
   )
   
-export default Videobox
+export default withStyles(styles)(Videobox)

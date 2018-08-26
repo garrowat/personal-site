@@ -12,14 +12,16 @@ import dalf from '../img/videos/dalf.mp4';
 import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
-  videoBox: {
-    width: 'auto',
-    height: 'auto',
+  wrapper: {
+    position: 'relative',
   },
-  modal: {
+  paper: {
     position: 'absolute',
-    left: '25%',
+    left: '36.5%',
     top: '25%',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
   },
 })
 
@@ -88,16 +90,17 @@ class About extends React.Component {
             </Typography>
             <Typography variant="caption" paragraph gutterBottom>
              <a href="" onClick={(e) => this.handleQuoteClick(e)} style={{ textDecoration: "none" }}>
-              All we have to decide is what to do with the time that is given us.
+              "All we have to decide is what to do with the time that is given us.""
              </a>
              <Modal
               open={this.props.gandalfAppears}
               onClose={this.props.hideGandalf}
-              className={classes.modal}
              >
-              <Paper className={classes.videoBox}>
-                <Videobox videofile={dalf} />
-              </Paper>
+              <div className={classes.paper}>
+                <div className={classes.wrapper}>
+                  <Videobox videofile={dalf} />
+                </div>
+              </div>
              </Modal>
             </Typography>
         </div>
